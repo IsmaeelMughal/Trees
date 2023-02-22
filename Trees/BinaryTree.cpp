@@ -76,7 +76,25 @@ vector<int> levelOrder(Node* node)
 	return res;
 }
 
+//Function to find the height of a binary tree.
+int height(struct Node* node) {
+	if (node == NULL)
+	{
+		return 0;
+	}
 
+	int leftHeight = height(node->left);
+	int rightHeight = height(node->right);
+
+	if (leftHeight > rightHeight)
+	{
+		return leftHeight + 1;
+	}
+	else
+	{
+		return rightHeight + 1;
+	}
+}
 
 int main()
 {
