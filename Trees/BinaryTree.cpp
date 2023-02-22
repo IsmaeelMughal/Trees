@@ -130,6 +130,67 @@ Node* InsertNode(Node* root, int data)
 	}
 }
 
+struct Node* deletionBT(struct Node* root, int key)
+{
+	if (root == NULL)
+	{
+		return NULL;
+	}
+
+	if (root->left == NULL and root->right == NULL)
+	{
+		if (root->data == key)
+		{
+			return NULL;
+		}
+		return root;
+	}
+
+	Node* temp;
+	Node* key_node = NULL;
+	Node* last;
+
+	queue<Node*> q;
+	q.push(root);
+
+	while (!q.empty())
+	{
+		temp = q.front();
+		q.pop();
+		if (temp->data == key)
+		{
+			key_node = temp;
+		}
+		if (temp->left != NULL)
+		{
+			last = temp;
+			q.push(temp->left);
+		}
+		if (temp->right != NULL)
+		{
+			last = temp;
+			q.push(temp->right);
+		}
+	}
+
+	if (key_node != NULL)
+	{
+		int x = temp->data;
+		if (last->left == temp)
+		{
+			last->left = NULL;
+		}
+		else if (last->right == temp)
+		{
+			last->right = NULL;
+		}
+		key_node->data = x;
+		delete temp;
+	}
+	return root;
+}
+
+
 int main()
 {
 	struct Node* root = new Node(1);
