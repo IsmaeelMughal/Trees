@@ -104,6 +104,43 @@ Node* deleteNode(Node* root, int X) {
 	return root;
 }
 
+//////////////////////////////////////
+void storeInorder(Node* root, vector<Node*>& vec)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	storeInorder(root->left, vec);
+	vec.push_back(root);
+	storeInorder(root->right, vec);
+}
+
+Node* utilTree(vector<Node*>& vec, int start, int end)
+{
+	if (start > end)
+	{
+		return NULL;
+	}
+	int mid = (start + end) / 2;
+	Node* root = vec[mid];
+
+	root->left = utilTree(vec, start, mid - 1);
+	root->right = utilTree(vec, mid + 1, end);
+
+	return root;
+}
+
+Node* buildBalancedTree(Node* root)
+{
+	vector<Node*> vec;
+	storeInorder(root, vec);
+	int n = vec.size();
+
+	return utilTree(vec, 0, n - 1);
+}
+//////////////////////////////////////
+
 int main()
 {
 	Node* root = new Node(1);
